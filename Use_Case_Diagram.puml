@@ -1,0 +1,61 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam backgroundColor #F8FAFC
+skinparam handwritten false
+skinparam roundcorner 10
+skinparam actor {
+    BackgroundColor #DBEAFE
+    BorderColor #1E293B
+}
+skinparam usecase {
+    BackgroundColor #EFF6FF
+    BorderColor #2563EB
+    ArrowColor #334155
+    FontColor #0F172A
+}
+
+title **UML Use-Case Diagram: Book Club Reading Challenge & Discussion Portal**\n<size:11>Problem Statement #55 | Student: Sushruth S (PES1UG24CS486) | Dept. of CSE, PES University</size>\n
+
+actor "Club Member" as Member
+actor "Discussion Lead" as Lead
+actor "Authentication &\nBackend System" as System <<Secondary Actor>>
+
+' Generalization
+Lead --|> Member : <<specializes>>
+
+rectangle "Book Club Portal System Boundary" {
+    usecase "UC-01: Set & Track\nReading Goals" as UC1
+    usecase "UC-02: Participate in Chapter\nDiscussion Thread" as UC2
+    usecase "UC-03: Create & Moderate\nDiscussion Thread" as UC3
+    usecase "UC-04: Vote in Monthly\nBook Selection Poll" as UC4
+    usecase "UC-05: Create & Manage\nMonthly Poll" as UC5
+    
+    usecase "UC-06: Award Milestone\nBadge" as UC6 #FEF3C7
+    usecase "UC-07: Reveal Spoiler\nContent" as UC7 #FEF3C7
+    usecase "UC-08: Verify User Session\n& Authenticate" as UC8 #FEF3C7
+    usecase "UC-09: Tally & Publish\nReal-Time Results" as UC9 #FEF3C7
+}
+
+' Actor to Use Case Associations
+Member --> UC1
+Member --> UC2
+Member --> UC4
+
+Lead --> UC3
+Lead --> UC5
+
+System --> UC8
+System --> UC9
+
+' Extend Relationships
+UC6 ..> UC1 : <<extend>>\n(Milestone Reached)
+UC7 ..> UC2 : <<extend>>\n(User Clicks Reveal)
+
+' Include Relationships
+UC4 ..> UC8 : <<include>>
+UC4 ..> UC9 : <<include>>
+UC2 ..> UC8 : <<include>>
+UC3 ..> UC8 : <<include>>
+
+@enduml
